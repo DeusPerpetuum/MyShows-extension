@@ -1,0 +1,14 @@
+{
+  "name": "myshows_integratinos",
+  "version": "1.8.4",
+  "description": "Automaticly check episodes of series on Myshows.me, when you see them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DeusPerpetuum",
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "https://github.com/DeusPerpetuum/SteamDB-prices-rub-extension"
+  }
+}
