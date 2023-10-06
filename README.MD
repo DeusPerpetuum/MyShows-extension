@@ -6,3 +6,7 @@
 ## How to install
 
 Get `compiled/Myshows automate.crx` file then drag and drop him into browser.
+
+## Credits
+
+Thank you [Myshows](https://myshows.me/) for API.
