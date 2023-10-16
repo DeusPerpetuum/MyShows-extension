@@ -5,7 +5,7 @@
 
 ## How to install
 
-Get `compiled/Myshows automate.crx` file then drag and drop him into browser.
+Get `compiled/Myshows automate.crx` file then drag and drop it into browser.
 
 ## Credits
 
