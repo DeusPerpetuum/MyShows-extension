@@ -5,6 +5,7 @@
   "permissions": [
     "storage"
   ],
+  "update_url": "",
   "action": {
     "default_popup": "popup/popup.html"
   },

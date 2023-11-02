@@ -1,10 +1,10 @@
 function setProfileInfo(data) {
 	const avatar = document.getElementsByClassName("avatar").item(0);
 	const name = document.getElementById("login");
-	const login_not = chrome.i18n.getMessage("login_not_exist")
+	const login_not = chrome.i18n.getMessage("login_not_exist");
 
-	avatar.src = (data.url != "") ? data.url : "imgs/avatar.png";
-	name.textContent = (data.login != "") ? data.login : login_not;
+	avatar.src = data.url != "" ? data.url : "imgs/avatar.png";
+	name.textContent = data.login != "" ? data.login : login_not;
 }
 
 function updateSeries(data) {
@@ -18,7 +18,7 @@ function updateSeries(data) {
 	function nullAll() {
 		series.innerText = not_found;
 		progress.style.width = 0;
-		show_container.firstChild.style.display = "none"
+		show_container.firstChild.style.display = "none";
 		return;
 	}
 
@@ -27,11 +27,11 @@ function updateSeries(data) {
 	if (data.episode == undefined && data.season == undefined) return nullAll();
 	if (data.episode == 0 && data.season == 0) return nullAll();
 
-	show_container.firstChild.style.display = "block"
+	show_container.firstChild.style.display = "block";
 
-	series.innerText = `${navigator.language == "ru-RU" ? data.name_ru : data.name},  ${
-		data.season
-	} ${seasonText} ${data.episode} ${episodeText}`;
+	series.innerText = `${navigator.language == "ru-RU" ? data.name_localized : data.name},  ${data.season} ${seasonText} ${
+		data.episode
+	} ${episodeText}`;
 
 	if (data.progress) progress.style.width = data.progress + "%";
 }
