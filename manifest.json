@@ -5,7 +5,7 @@
   "permissions": [
     "storage"
   ],
-  "update_url": "",
+  "update_url": "https://api.deusperpetuum.ru/extensions/update.php",
   "action": {
     "default_popup": "popup/popup.html"
   },
