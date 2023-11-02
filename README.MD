@@ -5,7 +5,7 @@
 
 ## How to install
 
-Select `Releases` from right side of the page and install later. Then drag and drop a downloaded file into browser window.
+Select `Releases` from right side of the page and install `Myshows.automate.crx` file from later. Then drag and drop a downloaded file into browser window.
 
 ## Credits
 
