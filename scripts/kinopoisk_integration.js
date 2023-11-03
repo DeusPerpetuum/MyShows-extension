@@ -48,11 +48,8 @@ window.onload = function () {
 		};
 
 		if (SeriesName.endsWith("Кинопоиск") || SeriesName.endsWith("Кинопоиске")) return;
-
 		if (skipTitlesButton) if (skipTitlesButton.innerText == "Смотреть титры") data.watched = true;
-
 		if (ratingSeries) if (ratingSeries.innerText == "Оцените фильм") data.watched = true;
-
 		if (button) if (button.lastChild.textContent != "Следующая серия") data.watched = false;
 
 		sendStatus(data);
