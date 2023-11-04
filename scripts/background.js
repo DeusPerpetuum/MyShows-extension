@@ -91,14 +91,17 @@ function getProfileInfo() {
 		jsonrpc: "2.0",
 		method: "profile.Get",
 		id: 1,
-	}).then((profileData) => {
-		avatar = profileData.result.user.avatar;
-		login = profileData.result.user.login;
 	})
-	.catch((error) => {
-		chrome.storage.sync.set({ token: "error" });
-		console.error(error);
-	})
+		.then((profileData) => {
+			chrome.storage.sync.set({
+				avatar: profileData.result.user.avatar,
+				login: profileData.result.user.login,
+			});
+		})
+		.catch((error) => {
+			chrome.storage.sync.set({ token: "error" });
+			console.error(error);
+		});
 }
 
 function findShow(title) {
