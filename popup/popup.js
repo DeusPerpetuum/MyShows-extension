@@ -1,3 +1,30 @@
+function Init() {
+	chrome.storage.sync.get(["token"]).then((result) => {
+		if ((result.token != undefined || result.token != null) && result.token != "error") return;
+
+		const info = document.getElementsByClassName("container").item(0);
+		info.style.display = "none";
+
+		const authLink = document.getElementsByTagName("a").item(0);
+		authLink.setAttribute(
+			"href",
+			`https://myshows.me/oauth/authorize?response_type=code&redirect_uri=https%3A%2F%2Fapi.myshows.me%2Fshared%2Fdoc%2Fo2c.html&client_id=apidoc&scope=basic&state=${Math.random()}`
+		);
+		authLink.style.display = "block";
+		authLink.innerText = chrome.i18n.getMessage("login");
+
+		document.body.appendChild(authLink);
+	});
+
+	(async () => {
+		let response = await chrome.runtime.sendMessage({ method: "get_activity" });
+		updateSeries(response);
+
+		let profile_info = await chrome.runtime.sendMessage({ method: "get_profile_info" });
+		setProfileInfo(profile_info);
+	})();
+};
+
 function setProfileInfo(data) {
 	const avatar = document.getElementsByClassName("avatar").item(0);
 	const name = document.getElementById("login");
@@ -36,29 +63,4 @@ function updateSeries(data) {
 	if (data.progress) progress.style.width = data.progress + "%";
 }
 
-window.onload = function () {
-	chrome.storage.sync.get(["token"]).then((result) => {
-		if ((result.token != undefined || result.token != null) && result.token != "error") return;
-
-		const info = document.getElementsByClassName("container").item(0);
-		info.style.display = "none";
-
-		const authLink = document.getElementsByTagName("a").item(0);
-		authLink.setAttribute(
-			"href",
-			`https://myshows.me/oauth/authorize?response_type=code&redirect_uri=https%3A%2F%2Fapi.myshows.me%2Fshared%2Fdoc%2Fo2c.html&client_id=apidoc&scope=basic&state=${Math.random()}`
-		);
-		authLink.style.display = "block";
-		authLink.innerText = chrome.i18n.getMessage("login");
-
-		document.body.appendChild(authLink);
-	});
-
-	(async () => {
-		const response = await chrome.runtime.sendMessage({ method: "get_activity" });
-		updateSeries(response);
-
-		const profile_info = await chrome.runtime.sendMessage({ method: "get_profile_info" });
-		setProfileInfo(profile_info);
-	})();
-};
+Init();
