@@ -68,5 +68,16 @@ body a {
 }
 
 .series_container span {
+    margin: 5px 0 5px 0;
     text-align: center;
+}
+
+.params_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.params_container a {
+    font-size: 10px;
 }
