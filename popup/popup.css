@@ -68,11 +68,7 @@ body a {
 }
 
 .series_container span {
-<<<<<<< HEAD
     margin-top: 5px;
-=======
-    margin: 5px 0 5px 0;
->>>>>>> b998cb84a95b94ce16ed6f5c65a82c533d32b62b
     text-align: center;
 }
 
@@ -80,11 +76,8 @@ body a {
     display: flex;
     flex-direction: row;
     justify-content: end;
-<<<<<<< HEAD
     height: fit-content;
     margin: 0;
-=======
->>>>>>> b998cb84a95b94ce16ed6f5c65a82c533d32b62b
 }
 
 .params_container a {
