@@ -17,7 +17,7 @@ async function getVersions() {
 				if(!app.children.item(0)) continue;
                 let lastVersion = app.children.item(0).getAttribute('version');
                 let lastCodebase = app.children.item(0).getAttribute('codebase');
-				if(lastVersion == manifest.version) return;
+				if(lastVersion <= manifest.version) return;
 				updateElement.innerText = `${chrome.i18n.getMessage("update_to")} ${lastVersion}`;
 				updateElement.setAttribute("href", lastCodebase);
             }

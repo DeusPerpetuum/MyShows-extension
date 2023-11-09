@@ -1,6 +1,6 @@
 {
   "name": "myshows-automate",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Automaticly check episodes of series on Myshows.me, when you see them. List of integrations: Kinopoisk",
   "main": "scripts/background.js",
   "scripts": {

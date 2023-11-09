@@ -230,7 +230,6 @@ function checkEpisode(season, episode) {
 }
 
 function updateActivity(message) {
-	console.log("message catched:", message);
 
 	if (message == null) {
 		activity = {};
@@ -247,6 +246,7 @@ function updateActivity(message) {
 
 	if (lastData.watched == true && message.watched == true) return;
 
+	console.log("message catched:", message);
 	let seriesTitle = message.SeriesName;
 	lastData = message;
 

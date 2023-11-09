@@ -1,18 +1,10 @@
 console.log("kinopoisk integration was enjected!");
 
-let lastData = {};
-
 function sendStatus(data) {
-	if (lastData.SeriesName == data.SeriesName)
-		if (lastData.season == data.season) if (lastData.episode == data.episode) if (lastData.watched == data.watched) return;
-
 	chrome.runtime
 		.sendMessage({
 			method: "set_activity",
 			data: data,
-		})
-		.then(() => {
-			lastData = data;
 		});
 }
 
