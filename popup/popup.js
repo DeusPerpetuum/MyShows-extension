@@ -1,5 +1,4 @@
 function setProfileInfo(url, login) {
-	console.log(url, login);
 	const avatar = document.getElementsByClassName("avatar").item(0);
 	const name = document.getElementById("login");
 	const login_not = chrome.i18n.getMessage("login_not_exist");
