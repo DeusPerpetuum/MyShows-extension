@@ -52,7 +52,7 @@ function refteshToken(refreshToken) {
 
 	fetch("https://myshows.me/oauth/token", requestOptions).then((result) => {
 		result.json().then((data) => {
-			chrome.storage.sync
+			browser.storage.local
 				.set({
 					token: data.access_token,
 					refresh_token: data.refresh_token,
@@ -67,10 +67,10 @@ function refteshToken(refreshToken) {
 }
 
 function checkToken() {
-	chrome.storage.sync.get(["token", "refresh_token", "token_expires_in"]).then((result) => {
-		if (result.token == "" || !result.token || result.token == "error") return chrome.storage.sync.set({ token: "error" });
+	browser.storage.local.get(["token", "refresh_token", "token_expires_in"]).then((result) => {
+		if (result.token == "" || !result.token || result.token == "error") return browser.storage.local.set({ token: "error" });
 
-		if (!result.refresh_token) return chrome.storage.sync.set({ token: "error" });
+		if (!result.refresh_token) return browser.storage.local.set({ token: "error" });
 
 		if (result.token_expires_in < Date.now()) return refteshToken(result.refresh_token);
 
@@ -91,13 +91,13 @@ function getProfileInfo() {
 		id: 1,
 	})
 		.then((profileData) => {
-			chrome.storage.sync.set({
+			browser.storage.local.set({
 				avatar: profileData.result.user.avatar,
 				login: profileData.result.user.login,
 			});
 		})
 		.catch((error) => {
-			chrome.storage.sync.set({ token: "error" });
+			browser.storage.local.set({ token: "error" });
 			console.error(error);
 		});
 }
@@ -148,7 +148,7 @@ function checkEpisodeRequest(episodeID) {
 		id: 1,
 	}).then((result) => {
 		if (result.error) {
-			if (result.error.code == 401) chrome.storage.sync.set({ token: "error" });
+			if (result.error.code == 401) browser.storage.local.set({ token: "error" });
 			return false;
 		}
 
@@ -262,7 +262,7 @@ function updateActivity(message) {
 }
 
 //message catching
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	switch (request.method) {
 		case "get_activity":
 			sendActivity(sendResponse);

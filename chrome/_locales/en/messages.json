@@ -1,0 +1,23 @@
+{
+	"extensionDescription": {
+		"message": "Automaticly check episodes of series on Myshows.me, when you see them. List of integrations: Kinopoisk"
+	},
+	"login": {
+		"message": "Login"
+	},
+	"not_found": {
+		"message": "Opened tabs wasn't found"
+	},
+	"episode": {
+		"message": "episode"
+	},
+	"season": {
+		"message": "season"
+	},
+	"login_not_exist": {
+		"message": "Something wrong"
+	},
+	"update_to": {
+		"message": "update to"
+	}
+}

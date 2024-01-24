@@ -37,7 +37,7 @@ function updateSeries(data) {
 }
 
 function Init() {
-	chrome.storage.sync.get(["token", "avatar", "login"]).then((result) => {
+	chrome.storage.local.get(["token", "avatar", "login"]).then((result) => {
 		if ((result.token != undefined || result.token != null) && result.token != "error") return setProfileInfo(result.avatar, result.login);
 
 		const info = document.getElementsByClassName("container").item(0);
@@ -57,6 +57,10 @@ function Init() {
 	(async () => {
 		let response = await chrome.runtime.sendMessage({ method: "get_activity" });
 		updateSeries(response);
+
+		const manifest = chrome.runtime.getManifest();
+		const updateElement = document.getElementById('version');
+		updateElement.innerText = `v.${manifest.version}`
 	})();
 }
 

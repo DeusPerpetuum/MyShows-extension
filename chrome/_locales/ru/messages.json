@@ -1,0 +1,23 @@
+{
+	"extensionDescription": {
+		"message": "Автоматически помечает просмотренные серии на Myshows.me. Список интеграций: Кинопоиск"
+	},
+	"login": {
+		"message": "Войти"
+	},
+	"not_found": {
+		"message": "Открытых вкладок нет"
+	},
+	"episode": {
+		"message": "серия"
+	},
+	"season": {
+		"message": "сезон"
+	},
+	"login_not_exist": {
+		"message": "Что-то пошло не так"
+	},
+	"update_to": {
+		"message": "обновить до"
+	}
+}

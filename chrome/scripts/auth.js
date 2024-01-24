@@ -25,7 +25,7 @@ window.onload = async () => {
 
 	fetch("https://myshows.me/oauth/token", requestOptions).then((result) => {
 		result.json().then((data) => {
-			chrome.storage.sync
+			chrome.storage.local
 				.set({
 					token: data.access_token,
 					refresh_token: data.refresh_token,
