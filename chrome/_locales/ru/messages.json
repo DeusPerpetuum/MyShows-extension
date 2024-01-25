@@ -16,8 +16,5 @@
 	},
 	"login_not_exist": {
 		"message": "Что-то пошло не так"
-	},
-	"update_to": {
-		"message": "обновить до"
 	}
 }

@@ -16,8 +16,5 @@
 	},
 	"login_not_exist": {
 		"message": "Something wrong"
-	},
-	"update_to": {
-		"message": "update to"
 	}
 }

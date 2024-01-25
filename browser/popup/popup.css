@@ -72,10 +72,10 @@ body a {
     margin-right: 5px;
 }
 
-.series_container span {
-    margin-top: 5px;
-    font-size: 14px;
-    text-align: center;
+.series_container p {
+    font-size: 12px;
+    text-anchor: middle;
+    height: 100%
 }
 
 .params_container {
