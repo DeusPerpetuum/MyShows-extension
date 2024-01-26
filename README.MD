@@ -5,7 +5,8 @@
 
 ## How to install
 
-Select `Releases` from right side of the page. Click on `Myshows.automate.crx` file in assets and then a browser show you message about download. Then click `go to settings` and press `install` on `Myshows automate` extension.
+[Install for Mozilla](https://addons.mozilla.org/ru/firefox/addon/myshows-automate/)
+[Install for Chrome, Opera, Yandex](https://chromewebstore.google.com/detail/myshows-automate/cmnpjhlkfbkonebdnfpgfncijaaopeap)
 
 ## Credits
 
