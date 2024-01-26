@@ -5,7 +5,7 @@
 
 ## How to install
 
-[Install for Mozilla](https://addons.mozilla.org/ru/firefox/addon/myshows-automate/)
+[Install for Mozilla](https://addons.mozilla.org/ru/firefox/addon/myshows-automate/)  
 [Install for Chrome, Opera, Yandex](https://chromewebstore.google.com/detail/myshows-automate/cmnpjhlkfbkonebdnfpgfncijaaopeap)
 
 ## Credits
