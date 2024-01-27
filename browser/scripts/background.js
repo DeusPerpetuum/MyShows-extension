@@ -132,7 +132,7 @@ function getEpisodes(showID) {
 function findEpisode(season, episode) {
 	activeShow_data.episodes.forEach((ep) => {
 		if (ep.seasonNumber == season && ep.episodeNumber == episode) {
-			activeShow_data["currentEpisode"] = ep;
+			activeShow_data.currentEpisode = ep;
 		}
 	});
 }
@@ -217,7 +217,7 @@ function checkEpisode(season, episode) {
 
 	if (
 		!watchedList[activeShow_data.title].find(function (e) {
-			e.id === activeShow_data.currentEpisode.id;
+			return e.id == activeShow_data.currentEpisode.id;
 		})
 	) {
 		checkToken();
@@ -231,12 +231,12 @@ function checkEpisode(season, episode) {
 
 function updateActivity(message) {
 	if (message == null) {
-		if(activity != {}) activity = {};
-		if(lastData != {}) lastData = {};
+		if (activity != {}) activity = {};
+		if (lastData != {}) lastData = {};
 		return;
 	}
 
-	if(message == "ExtensionActivityReset") {
+	if (message == "ExtensionActivityReset") {
 		activity = {};
 		activeShow_data = {};
 		lastData = {};
@@ -246,8 +246,13 @@ function updateActivity(message) {
 
 	if (message.episode == 0 && message.season == 0) return (activity = {});
 
-	if (lastData.SeriesName == message.SeriesName)
-		if (lastData.season == message.season) if (lastData.episode == message.episode) if (lastData.watched == message.watched) return;
+	if (
+		lastData.SeriesName == message.SeriesName &&
+		lastData.season == message.season &&
+		lastData.episode == message.episode &&
+		lastData.watched == message.watched
+	)
+		return;
 
 	if (lastData.watched == true && message.watched == true) return;
 
@@ -255,15 +260,15 @@ function updateActivity(message) {
 	let seriesTitle = message.SeriesName;
 	lastData = message;
 
-	if (activeShow_data === undefined) activeShow_data = {};
-	if ((activeShow_data.title != seriesTitle) || (activeShow_data.titleOriginal != seriesTitle)) getShowInfo(seriesTitle);
-	if (!activity.name) (activity.name = activeShow_data.titleOriginal);
-	if (!activity.name_localized) (activity.name_localized = activeShow_data.title);
+	if (activeShow_data == undefined) activeShow_data = {};
+	if (activeShow_data.title != seriesTitle && activeShow_data.titleOriginal != seriesTitle) getShowInfo(seriesTitle);
+	if (!activity.name) activity.name = activeShow_data.titleOriginal;
+	if (!activity.name_localized) activity.name_localized = activeShow_data.title;
 
 	activity.episode = message.episode;
 	activity.season = message.season;
 
-	if (message.watched === true) checkEpisode(message.season, message.episode);
+	if (message.watched == true) checkEpisode(message.season, message.episode);
 }
 
 //message catching

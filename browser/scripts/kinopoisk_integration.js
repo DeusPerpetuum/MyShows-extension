@@ -27,7 +27,7 @@ window.onbeforeunload = function () {
 		let rawSeriesName = document.querySelector('title[data-tid="HdSeoHead"]');
 		if (!rawSeriesName) return;
 
-		let SeriesName = rawSeriesName.innerText.replace("— смотреть онлайн в хорошем качестве — Кинопоиск", "").split(" (", 1)[0];
+		let SeriesName = rawSeriesName.innerText.replace("— смотреть онлайн в хорошем качестве — Кинопоиск", "").trim().split(" (", 1)[0];
 
 		let data = {
 			episode: episode,
@@ -38,9 +38,9 @@ window.onbeforeunload = function () {
 
 		if (SeriesName.includes("Кинопоиск") || SeriesName.includes("Kinopoisk")) return sendStatus(null);
 		let remaining = document.querySelector(".styles_root__yh787.styles_progress__Ypg9d");
-
-		if (remaining && (remaining.style.transform.replace(/[^\d.]/g, "") > 0.9) && (remaining.style.transform.replace(/[^\d.]/g) < 1)) {
-			data.watched = true;
+		if (remaining) {
+			let remainingTime = Number(remaining.style.transform.replace(/[^\d.]/g, ""));
+			if(remainingTime > 0.9 && remainingTime < 1) (data.watched = true);
 		}
 
 		sendStatus(data);
