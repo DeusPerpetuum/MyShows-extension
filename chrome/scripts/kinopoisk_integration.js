@@ -10,12 +10,12 @@ function sendStatus(data) {
 window.onbeforeunload = function () {
 	chrome.runtime.sendMessage({
 		method: "set_activity",
-		data: null,
+		data: "ExtensionActivityReset",
 	});
 };
 
 (() => {
-	window.setInterval(() => {
+	setInterval(() => {
 		let button = document.querySelector(".BaseButton_button___1Cj0.BaseButton_orange__J9N9H.styles_button__Z1Jox");
 		let skipTitlesButton = document.querySelector(".BaseButton_button___1Cj0.BaseButton_gray__tRqQq.styles_button__Z1Jox");
 		let ratingSeries = document.querySelector('p[data-tid="UserRatingVoteDialog"]');
@@ -27,7 +27,7 @@ window.onbeforeunload = function () {
 		let rawSeriesName = document.querySelector('title[data-tid="HdSeoHead"]');
 		if (!rawSeriesName) return;
 
-		let SeriesName = rawSeriesName.innerText.replace("— смотреть онлайн в хорошем качестве — Кинопоиск", " ").trim().split(" (", 1)[0];
+		let SeriesName = rawSeriesName.innerText.replace("— смотреть онлайн в хорошем качестве — Кинопоиск", "").split(" (", 1)[0];
 
 		let data = {
 			episode: episode,
@@ -36,10 +36,10 @@ window.onbeforeunload = function () {
 			watched: false,
 		};
 
-		if (SeriesName.endsWith("Кинопоиск") || SeriesName.endsWith("Кинопоиске")) return;
+		if (SeriesName.includes("Кинопоиск") || SeriesName.includes("Kinopoisk")) return sendStatus(null);
 		let remaining = document.querySelector(".styles_root__yh787.styles_progress__Ypg9d");
 
-		if (remaining && remaining.style.transform.replace(/[^\d.]/g, "") > 0.95) {
+		if (remaining && (remaining.style.transform.replace(/[^\d.]/g, "") > 0.9) && (remaining.style.transform.replace(/[^\d.]/g) < 1)) {
 			data.watched = true;
 		}
 

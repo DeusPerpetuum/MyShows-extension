@@ -170,7 +170,7 @@ async function getWatchedEpisodes(showID) {
 }
 
 //activity functions
-function sendActivity(send) {
+function sendActivity(sendResponse) {
 	if (activeShow_data)
 		if (activeShow_data.episodes) {
 			let episodesWithoutSpecials = 0;
@@ -182,10 +182,10 @@ function sendActivity(send) {
 			activity.progress = (watchedList[activeShow_data.title].length * 100) / episodesWithoutSpecials;
 		}
 
-	if (activity == {}) {
+	if (activity != {}) {
 		console.log("activity data was sended", activity);
 	}
-	return send(activity);
+	return sendResponse(activity);
 }
 
 function getShowInfo(seriesTitle) {
@@ -230,8 +230,13 @@ function checkEpisode(season, episode) {
 }
 
 function updateActivity(message) {
-
 	if (message == null) {
+		if(activity != {}) activity = {};
+		if(lastData != {}) lastData = {};
+		return;
+	}
+
+	if(message == "ExtensionActivityReset") {
 		activity = {};
 		activeShow_data = {};
 		lastData = {};
@@ -251,9 +256,9 @@ function updateActivity(message) {
 	lastData = message;
 
 	if (activeShow_data === undefined) activeShow_data = {};
-	if (activeShow_data.title != seriesTitle.toLowerCase() || activeShow_data.titleOriginal != seriesTitle.toLowerCase()) getShowInfo(seriesTitle);
-	if (!activity.name) activity.name = activeShow_data.titleOriginal;
-	if (!activity.name_localized) activity.name_localized = activeShow_data.title;
+	if ((activeShow_data.title != seriesTitle) || (activeShow_data.titleOriginal != seriesTitle)) getShowInfo(seriesTitle);
+	if (!activity.name) (activity.name = activeShow_data.titleOriginal);
+	if (!activity.name_localized) (activity.name_localized = activeShow_data.title);
 
 	activity.episode = message.episode;
 	activity.season = message.season;
