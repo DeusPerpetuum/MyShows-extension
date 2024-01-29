@@ -1,6 +1,8 @@
-window.onload = async () => {
-	const params = new URLSearchParams(window.location.search);
+(() => {
+	const params = new URLSearchParams(location.search);
 	const code = params.get("code") ? params.get("code") : "error";
+	console.log(code, params);
+	if(code === "error") return;
 
 	var myHeaders = new Headers();
 	myHeaders.append("Accept", "*/*");
@@ -25,16 +27,18 @@ window.onload = async () => {
 
 	fetch("https://myshows.me/oauth/token", requestOptions).then((result) => {
 		result.json().then((data) => {
-			chrome.storage.local
+			console.log(data);
+			browser.storage.local
 				.set({
 					token: data.access_token,
 					refresh_token: data.refresh_token,
 					token_expires_in: Date.now() + data.expires_in,
 				})
 				.then(() => {
-					chrome.runtime.sendMessage({ method: "token_update" });
+					
+					browser.runtime.sendMessage({ method: "token_update" });
 					window.location.replace("https://myshows.me/my/");
 				});
 		});
 	});
-};
+})();

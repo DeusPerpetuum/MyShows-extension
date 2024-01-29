@@ -16,5 +16,8 @@
 	},
 	"login_not_exist": {
 		"message": "Something wrong"
+	},
+	"note": {
+		"message": "Note:"
 	}
 }

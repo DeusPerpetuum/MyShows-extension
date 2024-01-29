@@ -11,14 +11,17 @@ function updateSeries(data) {
 	let series = document.getElementById("series");
 	let progress = document.getElementById("progress");
 	let show_container = document.getElementsByClassName("series_container").item(0);
+	let note = document.getElementsByClassName("note").item(0);
 	const not_found = chrome.i18n.getMessage("not_found");
 	const seasonText = chrome.i18n.getMessage("season");
 	const episodeText = chrome.i18n.getMessage("episode");
+	const notePlace = chrome.i18n.getMessage("note");
 
 	function nullAll() {
 		series.innerText = not_found;
 		progress.style.width = 0;
 		show_container.firstChild.style.display = "none";
+		note.parentElement.style.display = "none";
 		return;
 	}
 
@@ -29,11 +32,17 @@ function updateSeries(data) {
 
 	show_container.firstChild.style.display = "block";
 
-	series.innerText = `${navigator.language == "ru-RU" ? data.name_localized : data.name},  ${data.season} ${seasonText} ${
+	series.innerText = `${(navigator.language == "ru-RU" || navigator.language == "ru" ) ? data.name_localized : data.name},  ${data.season} ${seasonText} ${
 		data.episode
 	} ${episodeText}`;
 
 	if (data.progress) progress.style.width = data.progress + "%";
+	if (data.note) {
+		note.parentElement.firstElementChild.innerText = notePlace;
+		note.innerText = data.note;
+	} else {
+		note.parentElement.style.display = "none"
+	}
 }
 
 function Init() {
@@ -59,8 +68,8 @@ function Init() {
 		updateSeries(response);
 
 		const manifest = chrome.runtime.getManifest();
-		const updateElement = document.getElementById('version');
-		updateElement.innerText = `v.${manifest.version}`
+		const updateElement = document.getElementById("version");
+		updateElement.innerText = `v.${manifest.version}`;
 	})();
 }
 

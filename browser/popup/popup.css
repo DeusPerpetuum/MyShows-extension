@@ -4,11 +4,11 @@
 
 body {
     background-color: #282b30;
-    width: auto;
+    width: fit-content;
     min-width: 300px;
     display: flex;
     justify-content: center;
-    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body a {
@@ -22,6 +22,7 @@ body a {
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 5px
 }
 
 .profile_info {
@@ -49,6 +50,10 @@ body a {
     width: 100%;
 }
 
+#login {
+    text-wrap: nowrap;
+}
+
 #progress_bar {
     width: 100%;
     background-color: #414141;
@@ -72,10 +77,31 @@ body a {
     margin-right: 5px;
 }
 
-.series_container p {
+#series {
     font-size: 12px;
     text-anchor: middle;
-    height: 100%
+    text-wrap: nowrap;
+}
+
+.note_container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: #fff 1px solid;
+    padding: 1px 5px;
+    gap: 5px;
+    font-size: 12px;
+}
+
+#note-label  {
+    margin-top: 2.5px;
+}
+
+.note {
+    border-radius: 5px;
+    border: #fff 1px solid;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .params_container {
@@ -84,6 +110,7 @@ body a {
     justify-content: end;
     height: fit-content;
     margin: 0;
+    word-break: normal;
 }
 
 #version {

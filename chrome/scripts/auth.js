@@ -1,4 +1,4 @@
-window.onload = async () => {
+window.onload = () => {
 	const params = new URLSearchParams(window.location.search);
 	const code = params.get("code") ? params.get("code") : "error";
 

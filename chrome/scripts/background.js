@@ -129,10 +129,32 @@ function getEpisodes(showID) {
 	});
 }
 
+function getEpisodeProfileInfo(episodeID) {
+	return request({
+		jsonrpc: "2.0",
+		method: "profile.Episode",
+		params: {
+			episodeId: episodeID,
+		},
+		id: 1,
+	}).then((info) => {
+		let rating = info.result.rating != 0 ? `${info.result.rating}` : "";
+		activity.note = info.result.note != null ? info.result.note.text : null;
+		return rating;
+	});
+}
+
 function findEpisode(season, episode) {
+	if (!activeShow_data.episodes) return;
 	activeShow_data.episodes.forEach((ep) => {
 		if (ep.seasonNumber == season && ep.episodeNumber == episode) {
 			activeShow_data.currentEpisode = ep;
+
+			getEpisodeProfileInfo(ep.id).then((rating) => {
+				chrome.action.setBadgeBackgroundColor({ color: "#fcfcfc" });
+				chrome.action.setBadgeText({ text: rating });
+			});
+			console.log("current episode was found: ", ep);
 		}
 	});
 }
@@ -179,12 +201,11 @@ function sendActivity(sendResponse) {
 				if (!episode.isSpecial) episodesWithoutSpecials++;
 			});
 
-			activity.progress = (watchedList[activeShow_data.title].length * 100) / episodesWithoutSpecials;
+			if (watchedList[activeShow_data.title]) activity.progress = (watchedList[activeShow_data.title].length * 100) / episodesWithoutSpecials;
 		}
 
-	if (activity != {}) {
-		console.log("activity data was sended", activity);
-	}
+	if (activity != {}) console.log("activity data was sended", activity);
+
 	return sendResponse(activity);
 }
 
@@ -213,8 +234,6 @@ function getShowInfo(seriesTitle) {
 }
 
 function checkEpisode(season, episode) {
-	findEpisode(season, episode);
-
 	if (
 		!watchedList[activeShow_data.title].find(function (e) {
 			return e.id == activeShow_data.currentEpisode.id;
@@ -231,8 +250,10 @@ function checkEpisode(season, episode) {
 
 function updateActivity(message) {
 	if (message == null) {
-		if (activity != {}) activity = {};
-		if (lastData != {}) lastData = {};
+		if (lastData == {}) return;
+		activity = {};
+		lastData = {};
+		chrome.action.setBadgeText({ text: null });
 		return;
 	}
 
@@ -241,10 +262,18 @@ function updateActivity(message) {
 		activeShow_data = {};
 		lastData = {};
 		watchedList = {};
+		chrome.action.setBadgeText({ text: null });
 		return console.log("all data was nullified");
 	}
 
 	if (message.episode == 0 && message.season == 0) return (activity = {});
+
+	if (
+		!activeShow_data.currentEpisode ||
+		activeShow_data.currentEpisode.episodeNumber != message.episode ||
+		activeShow_data.currentEpisode.seasonNumber != message.season
+	)
+		findEpisode(message.season, message.episode);
 
 	if (
 		lastData.SeriesName == message.SeriesName &&
@@ -259,7 +288,6 @@ function updateActivity(message) {
 	console.log("message catched:", message);
 	let seriesTitle = message.SeriesName;
 	lastData = message;
-
 	if (activeShow_data == undefined) activeShow_data = {};
 	if (activeShow_data.title != seriesTitle && activeShow_data.titleOriginal != seriesTitle) getShowInfo(seriesTitle);
 	if (!activity.name) activity.name = activeShow_data.titleOriginal;
