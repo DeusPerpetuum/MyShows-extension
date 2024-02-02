@@ -1,8 +1,6 @@
 (() => {
 	const params = new URLSearchParams(location.search);
-	const code = params.get("code") ? params.get("code") : "error";
-	console.log(code, params);
-	if(code === "error") return;
+	const code = params.get("code").toString();
 
 	var myHeaders = new Headers();
 	myHeaders.append("Accept", "*/*");

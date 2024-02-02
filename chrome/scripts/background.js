@@ -138,7 +138,7 @@ function getEpisodeProfileInfo(episodeID) {
 		},
 		id: 1,
 	}).then((info) => {
-		let rating = info.result.rating != 0 ? `${info.result.rating}` : "";
+		let rating = info.result.rating != 0 ? info.result.rating.toString() : "";
 		activity.note = info.result.note != null ? info.result.note.text : null;
 		return rating;
 	});
@@ -201,7 +201,7 @@ function sendActivity(sendResponse) {
 				if (!episode.isSpecial) episodesWithoutSpecials++;
 			});
 
-			if (watchedList[activeShow_data.title]) activity.progress = (watchedList[activeShow_data.title].length * 100) / episodesWithoutSpecials;
+			if (watchedList[activeShow_data.title] && activity != {}) activity.progress = (watchedList[activeShow_data.title].length * 100) / episodesWithoutSpecials;
 		}
 
 	if (activity != {}) console.log("activity data was sended", activity);
